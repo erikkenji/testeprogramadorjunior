@@ -1,0 +1,72 @@
+﻿-- Table: public.pessoa
+
+-- DROP TABLE public.pessoa;
+
+CREATE TABLE public.pessoa
+(
+  id_pessoa integer NOT NULL DEFAULT nextval('pessoa_id_pessoa_seq'::regclass),
+  nome character varying(200),
+  cpf character varying(200),
+  email character varying(200),
+  PRIMARY KEY (id_pessoa)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.pessoa
+  OWNER TO postgres;
+
+  -- Table: public.alunos
+
+-- DROP TABLE public.alunos;
+
+CREATE TABLE public.alunos
+(
+  id_aluno integer NOT NULL DEFAULT nextval('aluno_id_aluno_seq'::regclass),
+  id_pessoa integer,
+  curso character varying(200),
+  PRIMARY KEY (id_aluno),
+  FOREIGN KEY (id_pessoa) REFERENCES public.pessoa (id_pessoa)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.alunos
+  OWNER TO postgres;
+
+-- Table: public.professores
+
+-- DROP TABLE public.professores;
+
+CREATE TABLE public.professores
+(
+  id_prof integer NOT NULL DEFAULT nextval('professores_id_prof_seq'::regclass),
+  id_pessoa integer,
+  titulacao character varying(200),
+  PRIMARY KEY (id_prof),
+  FOREIGN KEY (id_pessoa) REFERENCES public.pessoa (id_pessoa)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.professores
+  OWNER TO postgres;
+
+-- Table: public.telefones
+
+-- DROP TABLE public.telefones;
+
+CREATE TABLE public.telefones
+(
+  id_tel integer NOT NULL DEFAULT nextval('telefones_id_tel_seq'::regclass),
+  id_pessoa integer,
+  tipo character varying(200),
+  numero character varying(200),
+  PRIMARY KEY (id_tel),
+  FOREIGN KEY (id_pessoa) REFERENCES public.pessoa (id_pessoa)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.telefones
+  OWNER TO postgres;
